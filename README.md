@@ -125,46 +125,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 - **環境変数が反映されない場合**
   - Vercel の「Settings → Environment Variables」で設定した同じキー名を使っているか、正しく入力されているか、Environment が「Preview」「Production」両方に設定されているかを確認してください。
 
----
-
-## ディレクトリ構成
-
-my-frontend-app/
-├── .github/
-│ ├── workflows/ ← GitHub Actions の設定
-│ └── ISSUE\*TEMPLATE/ ← Issue テンプレート
-├── public/ ← 画像やフォントなど静的ファイル
-├── src/
-│ ├── app/ ← App Router 用ルート
-│ │ ├── api/ ← Next.js の API Routes（appDir 用）
-│ │ │ └── products/ ← 例: app/api/products/route.ts など
-│ │ │ └── route.ts
-│ │ ├── components/ ← ページ固有の小さなコンポーネント（必要に応じて）
-│ │ ├── layout.tsx ← 全ページ共通のレイアウト＆プロバイダ設定
-│ │ ├── globals.css ← グローバル CSS（Tailwind の @tailwind base/etc など）
-│ │ ├── page.tsx ← ルート / のページコンポーネント
-│ │ ├── head.tsx ← <head> の metadata 定義や SEO 設定
-│ │ ├── products/ ← /products ページ用ディレクトリ
-│ │ │ ├── page.tsx ← /products のページ
-│ │ │ └── [id]/ ← 動的ルート例: /products/[id]
-│ │ │ └── page.tsx ← /products/[id] のページ
-│ │ └── cart/ ← /cart ページ用ディレクトリ
-│ │ └── page.tsx ← /cart のページ
-│ ├── components/ ← 汎用コンポーネント（ボタン・入力欄など）
-│ ├── layouts/ ← 必要に応じて分割したレイアウト/Partial
-│ │ ├── Header.tsx ← ページ全体のヘッダー部分
-│ │ └── Footer.tsx ← ページ全体のフッター部分
-│ ├── styles/ ← Tailwind/Global CSS（グローバル用は app/globals.css にも配置可）
-│ ├── utils/ ← ユーティリティ関数・API クライアント設定
-│ ├── hooks/ ← カスタム React Hooks
-│ └── types/ ← TypeScript の型定義（共通型）
-├── .eslintrc.json ← ESLint 設定
-├── tsconfig.json ← TypeScript 設定（src/app を含むように paths を調整）
-├── tailwind.config.js ← Tailwind CSS 設定（content に src/app/\*\*/\_.{ts,tsx} などを追加）
-├── next.config.js ← Next.js 設定（appDir を有効化済みのはず）
-├── .gitignore
-└── package.json
-
 ## 今後のロードマップ例（MVP→フェーズ2以降）
 
 ### フェーズ1（MVP）
