@@ -1,20 +1,23 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
-
+name: フロントエンドタスク
+about: 新しいフロントエンド開発用の Issue テンプレート
+labels: frontend, task
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+# 概要
+<!-- ここに Issue のタイトルでわかる程度の一文を記述してください -->
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+# 背景・目的
+<!-- なぜこのタスクが必要なのか、背景や目的を書きます -->
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+# 具体的な作業内容
+- [ ] 何を実装・修正するか箇条書きでリストアップ
+- [ ] （例）Next.js プロジェクトの初期セットアップ
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+# 完了の定義
+<!-- どの状態になれば完了とみなすかを明確に書く -->
+- Next.js プロジェクトがローカルでビルド・起動できる
+- ESLint がエラーなしで通る
+
+# 関連 Issue/参考資料
+<!-- 必要なら他の Issue 番号や仕様書、リンクなどを書く -->
