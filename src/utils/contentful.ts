@@ -3,6 +3,14 @@ import { createClient } from 'contentful';
 const spaceId = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID!;
 const accessToken = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN!;
 
+// ビルドログ上に値がどう出ているかをチェック
+console.log('⛔ VERCEL ENV SPACE_ID:', spaceId);
+console.log('⛔ VERCEL ENV ACCESS_TOKEN:', accessToken);
+
+if (!spaceId || !accessToken) {
+  throw new Error('Contentful の環境変数が読み込まれていません');
+}
+
 export const client = createClient({
   space: spaceId,
   accessToken: accessToken,
