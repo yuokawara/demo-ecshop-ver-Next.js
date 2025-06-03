@@ -38,7 +38,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 my-frontend-app/
 ├── .github/
 │ ├── workflows/ ← GitHub Actions の設定
-│ └── ISSUE_TEMPLATE/ ← Issue テンプレート
+│ └── ISSUE*TEMPLATE/ ← Issue テンプレート
 ├── public/ ← 画像やフォントなど静的ファイル
 ├── src/
 │ ├── app/ ← App Router 用ルート
@@ -66,7 +66,42 @@ my-frontend-app/
 │ └── types/ ← TypeScript の型定義（共通型）
 ├── .eslintrc.json ← ESLint 設定
 ├── tsconfig.json ← TypeScript 設定（src/app を含むように paths を調整）
-├── tailwind.config.js ← Tailwind CSS 設定（content に src/app/\*_/_.{ts,tsx} などを追加）
+├── tailwind.config.js ← Tailwind CSS 設定（content に src/app/\**/\_.{ts,tsx} などを追加）
 ├── next.config.js ← Next.js 設定（appDir を有効化済みのはず）
 ├── .gitignore
 └── package.json
+
+## 今後のロードマップ例（MVP→フェーズ2以降）
+
+### フェーズ1（MVP）
+
+- **Next.js + Headless CMS連携**
+  - ログイン不要のトップページ／商品一覧／商品詳細ページを SSG or ISR で構築
+- **GitHub Actions で CI を回す**
+  - Lint と Build を常時チェック
+- **プロジェクト管理**
+  - GitHub Projects で「フェーズ1 の必須タスク」を管理
+- **Tailwind CSS で最低限のデザイン実装**
+
+---
+
+### フェーズ2
+
+- **会員認証・マイページ機能（SSR）**
+- **カート機能 → Stripe 決済連携**
+- **レスポンシブ最適化**
+  - 各ブレイクポイント（スマホ／タブレット／PC）で調整
+- **E2E テスト導入（Cypress など）**
+  - GitHub Actions に組み込む
+
+---
+
+### フェーズ3
+
+- **レコメンド機能**
+  - フロントでの動的表示＋API 連携
+- **PWA 機能**
+  - オフラインキャッシュなど
+- **国際化・多言語対応**
+- **SEO強化**
+  - meta タグ、構造化データなどの最適化
