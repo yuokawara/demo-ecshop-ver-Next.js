@@ -31,14 +31,108 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Vercel へのデプロイ手順
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+以下の手順に沿って、GitHub リポジトリを Vercel に連携し、自動デプロイを設定します。
+
+---
+
+### 1. Vercel アカウントの準備
+
+1. [Vercel](https://vercel.com/) にアクセスし、「Sign Up」から GitHub アカウントでログインまたは新規登録します。
+2. ログイン後、ダッシュボードに飛んだら、右上の「New Project」をクリックします。
+
+---
+
+### 2. GitHub リポジトリと連携
+
+1. 「New Project」画面で「Import Git Repository」を選択し、GitHub と連携済みのアカウントを選びます。
+2. リストアップされた自分のリポジトリから、今回作成した `my-frontend-app` を選択します。
+3. 次のページでビルド設定を確認します。通常は以下のままで問題ありません。
+   - **Framework Preset**: `Next.js` が自動で検出される
+   - **Root Directory**: 空欄（または `/`）
+   - **Build Command**: `npm run build` (あるいは `yarn build`)
+   - **Output Directory**: 自動で `/.next` が設定される
+
+---
+
+### 3. 環境変数の設定（Headless CMS API 等がある場合）
+
+1. デプロイ時に必要な環境変数を Vercel 側で設定します。
+2. Vercel ダッシュボードの該当プロジェクトページで「Settings」→「Environment Variables」を開きます。
+3. 例えば Headless CMS のエンドポイントや API キーが必要な場合は、以下のように追加します。
+   - `NEXT_PUBLIC_API_BASE_URL` → `https://api.example.com`
+   - `CMS_API_KEY` → `xxxxxxxxxxxxxxxxxxxx`
+   - `NEXTAUTH_SECRET` → `ランダムな文字列（JWT など認証周りがある場合）`
+4. `Environment` は必要に応じて「Preview（プレビュー環境）」「Production（本番環境）」を選択して登録します。
+
+---
+
+### 4. デプロイの実行
+
+1. Vercel のプロジェクトページに戻り、「Deploy」ボタンをクリックすると、自動でビルド＆デプロイが始まります。
+2. GitHub の `main` ブランチにプッシュするたびに Vercel がトリガーされ、自動で再ビルド＆再デプロイされます。
+3. 成功すると、Vercel が払い出す検証用 URL（Preview Deployment）や、本番用の独自ドメインが発行されます。
+
+---
+
+### 5. ドメイン設定（カスタムドメインを使う場合）
+
+1. Vercel ダッシュボードのプロジェクトページで「Settings」→「Domains」を選択します。
+2. 「Add」欄に自分が所有するカスタムドメイン（例：`example.com` や `shop.example.com`）を入力し、「Add Domain」をクリック。
+3. DNS 側で CNAME または A レコードを Vercel 指示の通りに設定します（Vercel がガイドを表示します）。
+4. DNS が浸透すれば、カスタムドメインで自動的に HTTPS（Let's Encrypt）が有効化され、本番サイトへのアクセスが可能になります。
+
+---
+
+### 6. プレビュー URL の活用
+
+- プルリクエストを作成すると、Vercel が自動的にそのPR用のプレビューサイトを生成してくれます。
+- チームメンバーやクライアントにプレビュー URL を共有して、実際に動作を見ながらレビューができます。
+- マージ後は本番 URL に反映されます。
+
+---
+
+### 7. トラブルシューティング
+
+- **ビルドエラーが発生する場合**
+  - `Vercel Dashboard → Deployments` で失敗した直近デプロイのログを確認し、どのコマンドでエラーになったか特定してください。
+  - 環境変数不足や Node.js バージョンの不整合、ビルドスクリプトのタイポなどが原因であることが多いです。
+- **404 が返ってくる場合**
+
+  - `app/router` で作成している場合は、`next.config.js` に `trailingSlash` や `rewrites` が必要なケースがあります。
+  - `next.config.js` に以下の設定を追加すると `/products` や `/products/1` などが正しく動くか確認してください。
+
+    ```js
+    /** @type {import('next').NextConfig} */
+    const nextConfig = {
+      experimental: {
+        appDir: true,
+      },
+      reactStrictMode: true,
+      // 必要に応じて
+      // trailingSlash: true,
+      // async rewrites() {
+      //   return [
+      //     { source: '/products/:path*', destination: '/products/:path*' },
+      //   ]
+      // },
+    };
+
+    module.exports = nextConfig;
+    ```
+
+- **環境変数が反映されない場合**
+  - Vercel の「Settings → Environment Variables」で設定した同じキー名を使っているか、正しく入力されているか、Environment が「Preview」「Production」両方に設定されているかを確認してください。
+
+---
+
+## ディレクトリ構成
 
 my-frontend-app/
 ├── .github/
 │ ├── workflows/ ← GitHub Actions の設定
-│ └── ISSUE*TEMPLATE/ ← Issue テンプレート
+│ └── ISSUE\*TEMPLATE/ ← Issue テンプレート
 ├── public/ ← 画像やフォントなど静的ファイル
 ├── src/
 │ ├── app/ ← App Router 用ルート
@@ -66,7 +160,7 @@ my-frontend-app/
 │ └── types/ ← TypeScript の型定義（共通型）
 ├── .eslintrc.json ← ESLint 設定
 ├── tsconfig.json ← TypeScript 設定（src/app を含むように paths を調整）
-├── tailwind.config.js ← Tailwind CSS 設定（content に src/app/\**/\_.{ts,tsx} などを追加）
+├── tailwind.config.js ← Tailwind CSS 設定（content に src/app/\*\*/\_.{ts,tsx} などを追加）
 ├── next.config.js ← Next.js 設定（appDir を有効化済みのはず）
 ├── .gitignore
 └── package.json
