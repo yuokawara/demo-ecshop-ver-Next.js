@@ -1,8 +1,11 @@
 import { createClient } from 'contentful';
 
-const client = createClient({
-  space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID as string,
-  accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN as string,
+const spaceId = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID!;
+const accessToken = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN!;
+
+export const client = createClient({
+  space: spaceId,
+  accessToken: accessToken,
 });
 
 /** 商品一覧を取って、自前の ProductEntry[] にマッピングする */
