@@ -1,7 +1,7 @@
 import { createClient } from 'contentful';
 
-const spaceId = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID!;
-const accessToken = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN!;
+const spaceId = process.env.CONTENTFUL_SPACE_ID;
+const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN;
 
 // ビルドログ上に値がどう出ているかをチェック
 console.log('⛔ VERCEL ENV SPACE_ID:', spaceId);
