@@ -4,7 +4,16 @@
     "module": "CommonJS",
     "strict": true,
     "esModuleInterop": true,
+    "moduleResolution": "node",
     "outDir": "dist"
   },
-  "include": ["*.ts"]
+  "include": [
+    "src/**/*",
+    "src/types/**/*",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/types/contentful.d.ts"
+  ]
 }

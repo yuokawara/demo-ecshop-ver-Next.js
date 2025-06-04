@@ -22,6 +22,7 @@
     "axios": "^1.9.0",
     "contentful": "^11.5.25",
     "framer-motion": "^12.15.0",
+    "json-rpc-2.0": "^1.7.0",
     "microcms-js-sdk": "^3.2.0",
     "next": "15.3.3",
     "react": "^19.0.0",
@@ -32,6 +33,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/dotenv": "^8.2.3",
     "@types/jest": "^29.5.14",
     "@types/node": "^20",
     "@types/react": "^19",

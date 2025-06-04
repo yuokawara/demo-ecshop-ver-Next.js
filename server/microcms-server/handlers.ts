@@ -1,5 +1,5 @@
 import { JSONRPCServer } from 'json-rpc-2.0';
-import { createClient, Entry } from 'microcms-js-sdk';
+import { createClient } from 'microcms-js-sdk';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -26,7 +26,7 @@ const microcmsClient = createClient({
 const server = new JSONRPCServer();
 
 // initialize メソッド：クライアントと名刺交換
-server.addMethod('initialize', ({ clientId, clientName, capabilities }) => {
+server.addMethod('initialize', () => {
   return {
     serverName: 'MicroCMSServer',
     version: '1.0.0',
@@ -43,7 +43,7 @@ server.addMethod('getProducts', async () => {
     endpoint: 'products',
     queries: { limit: 100 },
   });
-  return data.contents as Entry<ProductFields>[];
+  return data.contents;
 });
 
 // getProductBySlug メソッド
@@ -53,7 +53,7 @@ server.addMethod('getProductBySlug', async ({ slug }: { slug: string }) => {
     queries: { filters: `slug[equals]${slug}` },
   });
   if (data.contents.length === 0) return null;
-  return data.contents[0] as Entry<ProductFields>;
+  return data.contents[0];
 });
 
 export default server;
