@@ -6,7 +6,21 @@ import { fetchAllProducts, Product } from '@/utils/microcms';
 export const revalidate = 60; // ISR: 60秒ごとに再検証
 
 export default async function ProductsPage() {
+  console.log(
+    '⛔ [ProductsPage] MICROCMS_SERVICE_DOMAIN =',
+    process.env.MICROCMS_SERVICE_DOMAIN
+  );
+  console.log(
+    '⛔ [ProductsPage] MICROCMS_API_KEY         =',
+    process.env.MICROCMS_API_KEY
+  );
+
+  // 2⃣ 実際に fetchAllProducts() を呼び出して生データをログ出力
   const products: Product[] = await fetchAllProducts();
+  console.log(
+    '⛔ [ProductsPage] fetched products:',
+    JSON.stringify(products, null, 2)
+  );
 
   return (
     <div className="container mx-auto py-12">
