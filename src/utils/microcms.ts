@@ -12,12 +12,12 @@ if (!serviceDomain || !apiKey) {
   throw new Error('Contentful の環境変数が読み込まれていません');
 }
 
-console.log('Service Domain:', process.env.MICROCMS_SERVICE_DOMAIN);
-console.log('API Key:', process.env.MICROCMS_API_KEY);
+console.log('!!! Service Domain:', serviceDomain);
+console.log('!!! API Key:', apiKey);
 
 // クライアントを生成
 export const microcmsClient = createClient({
-  serviceDomain: serviceDomain, // ex: "demo-ecshop"
+  serviceDomain: serviceDomain,
   apiKey: apiKey,
 });
 
