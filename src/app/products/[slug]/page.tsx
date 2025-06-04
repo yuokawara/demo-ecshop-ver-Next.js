@@ -13,6 +13,10 @@ interface ProductDetailPageProps {
 
 export async function generateStaticParams() {
   const products: Product[] = await fetchAllProducts();
+  console.log(
+    '🔍 generateStaticParams:',
+    products.map((p) => p.slug)
+  );
   return products.map((p) => ({ slug: p.slug }));
 }
 

@@ -8,6 +8,8 @@ export const revalidate = 60; // ISR: 60秒ごとに再検証
 export default async function ProductsPage() {
   const products: Product[] = await fetchAllProducts();
 
+  console.log('!!! Products fetched:', products);
+
   return (
     <div className="container mx-auto py-12">
       <h2 className="text-2xl font-bold mb-6">商品一覧</h2>
