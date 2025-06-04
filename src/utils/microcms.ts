@@ -5,8 +5,15 @@ import {
 } from 'microcms-js-sdk';
 
 // 環境変数を参照
-const serviceDomain = process.env.NEXT_PUBLIC_MICROCMS_SERVICE_DOMAIN!;
-const apiKey = process.env.NEXT_PUBLIC_MICROCMS_API_KEY!;
+const serviceDomain = process.env.MICROCMS_SERVICE_DOMAIN;
+const apiKey = process.env.MICROCMS_API_KEY;
+
+if (!serviceDomain || !apiKey) {
+  throw new Error('Contentful の環境変数が読み込まれていません');
+}
+
+console.log('Service Domain:', process.env.MICROCMS_SERVICE_DOMAIN);
+console.log('API Key:', process.env.MICROCMS_API_KEY);
 
 // クライアントを生成
 export const microcmsClient = createClient({
@@ -42,12 +49,15 @@ export async function fetchAllProducts(): Promise<Product[]> {
 export async function fetchProductBySlug(
   slug: string
 ): Promise<Product | null> {
-  const data = await microcmsClient.get({
-    endpoint: 'products',
-    queries: { filters: `slug[equals]${slug}` },
-  });
-
-  // contents が空配列なら null を返す
-  if (data.contents.length === 0) return null;
-  return data.contents[0] as Product;
+  try {
+    const data = await microcmsClient.get({
+      endpoint: 'products',
+      queries: { filters: `slug[equals]${slug}` },
+    });
+    if (!data.contents || data.contents.length === 0) return null;
+    return data.contents[0] as Product;
+  } catch (error) {
+    console.error('fetchProductBySlug error:', error);
+    return null;
+  }
 }

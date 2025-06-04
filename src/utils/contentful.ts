@@ -15,7 +15,7 @@ export const client = createClient({
 /** 商品一覧を取って、自前の ProductEntry[] にマッピングする */
 export async function fetchAllProducts() {
   const raw = await client.getEntries({
-    content_type: 'product',
+    content_type: 'products',
     include: 2, // // リンク解決の深さ（Asset を直接 fields に取り込むため）
     locale: 'en-US', // ロケールを明示して取得
   });
